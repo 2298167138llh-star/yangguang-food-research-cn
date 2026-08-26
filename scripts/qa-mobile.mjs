@@ -18,7 +18,8 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 430, height: 932 }
   const errors = [];
   page.on('requestfailed', (request) => failures.push(`${request.url()} ${request.failure()?.errorText || ''}`));
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
-  await page.goto(`${base}/mobile.html`, { waitUntil: 'networkidle', timeout: 30000 });
+  await page.goto(`${base}/mobile.html`, { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await page.locator('.slide-preview img').first().evaluate((image) => image.complete ? true : new Promise((resolve) => image.addEventListener('load', () => resolve(true), { once: true })));
   await page.waitForTimeout(500);
   const initial = await page.evaluate(() => ({
     slides: document.querySelectorAll('.mobile-slide').length,
@@ -53,7 +54,7 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 430, height: 932 }
 const desktop = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const desktopFailures = [];
 desktop.on('requestfailed', (request) => desktopFailures.push(request.url()));
-await desktop.goto(`${base}/index.html`, { waitUntil: 'networkidle', timeout: 30000 });
+  await desktop.goto(`${base}/index.html`, { waitUntil: 'domcontentloaded', timeout: 30000 });
 await desktop.waitForTimeout(700);
 const desktopState = await desktop.evaluate(() => ({
   slides: document.querySelectorAll('.slide').length,
