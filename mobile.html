@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#002fa7">
+  <meta name="description" content="杨光食品标的与行业共同底稿手机竖屏阅读版">
+  <title>杨光食品·共同底稿｜手机竖屏版</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <style>
+    :root{--accent:#002fa7;--ink:#0a0a0a;--paper:#fff;--grey:#f2f2f2;--line:#d9d9d9;--muted:#676767;--safe-bottom:max(86px,calc(70px + env(safe-area-inset-bottom)))}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-snap-type:y mandatory;background:var(--paper)}
+    body{margin:0;color:var(--ink);background:var(--paper);font-family:Inter,"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+    button,a{font:inherit}
+    button:focus-visible,a:focus-visible{outline:3px solid #ffcf00;outline-offset:3px}
+    .progress{position:fixed;inset:0 0 auto;z-index:20;height:4px;background:rgba(0,0,0,.12)}
+    .progress span{display:block;width:var(--progress,4.55%);height:100%;background:var(--accent);transition:width .28s ease}
+    .mobile-slide{min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;background:var(--paper);display:grid;align-items:start}
+    .mobile-slide:nth-child(even){background:var(--grey)}
+    .slide-shell{width:min(100%,680px);min-height:100svh;margin:0 auto;padding:max(28px,env(safe-area-inset-top)) 22px var(--safe-bottom);display:flex;flex-direction:column;gap:20px}
+    .slide-meta{display:flex;justify-content:space-between;gap:16px;padding-top:8px;padding-bottom:12px;border-bottom:1px solid var(--ink);font-size:12px;font-weight:600;line-height:1.3;letter-spacing:.08em;text-transform:uppercase}
+    .slide-heading{display:grid;gap:9px}
+    .eyebrow{margin:0;color:var(--accent);font-size:12px;font-weight:650;line-height:1.2;letter-spacing:.13em}
+    h2{margin:0;font-size:clamp(30px,8.5vw,46px);font-weight:300;line-height:1.05;letter-spacing:-.045em;text-wrap:balance}
+    .purpose{margin:0;max-width:40em;font-size:17px;font-weight:450;line-height:1.6;color:#303030}
+    .slide-preview{position:relative;display:block;width:100%;padding:0;border:0;border-top:2px solid var(--accent);border-bottom:1px solid var(--line);background:transparent;color:inherit;text-align:left;cursor:zoom-in}
+    .slide-preview img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#eee}
+    .slide-preview span{display:block;padding:8px 0 7px;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--muted)}
+    .reading-notes{display:grid;gap:10px}
+    .reading-notes ol{counter-reset:point;margin:0;padding:0;list-style:none;border-top:1px solid var(--ink)}
+    .reading-notes li{counter-increment:point;display:grid;grid-template-columns:32px 1fr;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:16px;font-weight:450;line-height:1.55}
+    .reading-notes li::before{content:counter(point,decimal-leading-zero);color:var(--accent);font-size:12px;font-weight:650;letter-spacing:.08em;padding-top:4px}
+    .traceability{display:grid;gap:8px;margin-top:auto;padding-top:12px;border-top:1px solid var(--ink)}
+    .traceability p{margin:0;font-size:12px;font-weight:500;line-height:1.6;color:var(--muted)}
+    .traceability strong{display:inline-block;margin-right:8px;color:var(--ink);font-weight:700}
+    .cover,.closing{color:#fff;background:var(--accent)!important}
+    .cover .slide-shell,.closing .slide-shell{background-image:radial-gradient(circle at 82% 18%,rgba(255,255,255,.22) 0 1px,transparent 1.5px);background-size:18px 18px}
+    .cover .slide-meta,.closing .slide-meta{border-color:rgba(255,255,255,.62)}
+    .cover .eyebrow,.closing .eyebrow{color:rgba(255,255,255,.74)}
+    .cover h2,.closing h2{font-size:clamp(42px,12vw,68px);font-weight:250}
+    .cover .purpose,.closing .purpose{color:rgba(255,255,255,.9)}
+    .cover .slide-preview,.closing .slide-preview{border-top-color:#fff;border-bottom-color:rgba(255,255,255,.35)}
+    .cover .slide-preview span,.closing .slide-preview span,.cover .traceability p,.closing .traceability p{color:rgba(255,255,255,.76)}
+    .cover .reading-notes ol,.closing .reading-notes ol,.cover .traceability,.closing .traceability{border-color:rgba(255,255,255,.72)}
+    .cover .reading-notes li,.closing .reading-notes li{border-color:rgba(255,255,255,.28)}
+    .cover .reading-notes li::before,.closing .reading-notes li::before,.cover .traceability strong,.closing .traceability strong{color:#fff}
+    .bottom-nav{position:fixed;z-index:30;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(calc(100% - 24px),520px);display:grid;grid-template-columns:58px 1fr 58px;align-items:center;background:rgba(10,10,10,.94);color:#fff;border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(12px)}
+    .bottom-nav button,.bottom-nav a{min-height:48px;border:0;background:transparent;color:inherit;display:grid;place-items:center;text-decoration:none;cursor:pointer}
+    .bottom-nav button[disabled]{opacity:.32;cursor:default}
+    .nav-status{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:0 12px;border-inline:1px solid rgba(255,255,255,.18);font-size:12px;font-weight:650;letter-spacing:.06em}
+    .nav-status span:nth-child(2){height:2px;background:rgba(255,255,255,.25)}
+    .nav-status i{display:block;width:var(--progress,4.55%);height:100%;background:#fff}
+    dialog{width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:0;border:0;background:#090909;color:#fff}
+    dialog::backdrop{background:#090909}
+    .viewer{height:100%;display:grid;grid-template-rows:56px 1fr;overflow:hidden}
+    .viewer-head{display:flex;justify-content:space-between;align-items:center;padding:0 16px;border-bottom:1px solid #333;font-size:13px;font-weight:600}
+    .viewer-head button{min-width:48px;min-height:40px;border:1px solid #555;background:transparent;color:#fff;cursor:pointer}
+    .viewer-stage{overflow:auto;display:grid;place-items:center;touch-action:pan-x pan-y pinch-zoom}
+    .viewer-stage img{display:block;width:max(100vw,920px);height:auto;max-width:none}
+    @media (min-width:700px){.slide-shell{padding-inline:34px}.bottom-nav{bottom:20px}}
+    @media (max-height:720px){.slide-shell{gap:15px}.purpose{font-size:16px}.reading-notes li{padding:8px 0}.slide-preview span{padding-block:5px}}
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.progress span{transition:none}}
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span></span></div>
+  <main>
+    <section class="mobile-slide cover" id="cover" data-index="0" aria-labelledby="title-0">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>开场 · MOBILE READING</span>
+          <span>01 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-0">杨光食品：标的与行业共同底稿</h2>
+          <p class="purpose">说明这份PPT是内部共同底稿，不是对外路演。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="0" aria-label="放大查看第1页原稿">
+          <img src="assets/slides/slide-01.png" alt="第1页原稿：杨光食品：标的与行业共同底稿" loading="eager" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>四个人的材料已经齐了，现在要做的是接起来。</li><li>先统一主体、时间和数据口径，再谈判断。</li><li>这份稿子保留冲突，不替材料做没有证据的裁决。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>材料范围：第一次分工成品、公司简介、央厨年度总结与课程作业说明。</p>
+          <p><strong>衔接下页</strong>先看本次盘点包含哪些材料。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="reading-guide" data-index="1" aria-labelledby="title-1">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>阅读方法 · MOBILE READING</span>
+          <span>02 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-1">这份底稿由六块材料组成</h2>
+          <p class="purpose">让组员知道每类材料负责回答什么问题。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="1" aria-label="放大查看第2页原稿">
+          <img src="assets/slides/slide-02.png" alt="第2页原稿：这份底稿由六块材料组成" loading="eager" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>公司与央厨资料承担企业事实。</li><li>四份分工分别回答市场、链条、竞争和变量。</li><li>综合分析只作汇总，不把它当成独立证据。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>材料范围：5份第一次分工成品 + 2份公司简介 + 2份央厨年度总结 + 课程作业说明。</p>
+          <p><strong>衔接下页</strong>材料齐全后，真正的问题是口径没有对齐。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="core-problem" data-index="2" aria-labelledby="title-2">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>阅读方法 · MOBILE READING</span>
+          <span>03 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-2">缺的不是更多信息</h2>
+          <p class="purpose">把讨论焦点从搜集资料转向统一口径。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="2" aria-label="放大查看第3页原稿">
+          <img src="assets/slides/slide-03.png" alt="第3页原稿：缺的不是更多信息" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>不同报告里有同名数字，但定义并不相同。</li><li>公司主体与央厨经营记录也不能直接画成一条连续曲线。</li><li>后面的每一页都会标注事实、估算或待确认。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>本页为资料盘点后的结构判断。</p>
+          <p><strong>衔接下页</strong>先从经营时间线看主体为什么容易混。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="business-timeline" data-index="3" aria-labelledby="title-3">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>公司事实 · MOBILE READING</span>
+          <span>04 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-3">央厨先运行，法定主体后成立</h2>
+          <p class="purpose">还原经营记录与公司成立的先后关系。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="3" aria-label="放大查看第4页原稿">
+          <img src="assets/slides/slide-04.png" alt="第4页原稿：央厨先运行，法定主体后成立" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>2023和2024来自央厨总结，2025以后来自公司材料。</li><li>这些数字能放在一页看，但不能默认属于同一个会计主体。</li><li>2026统计周期不明，所以不做同比。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：央厨23年总结&amp;24年计划；央厨24年总结&amp;25年计划；杨光食品简介(1)；东莞市杨光食品供应链有限公司简介(1)。</p>
+          <p><strong>衔接下页</strong>下一页把经营资产和法定主体彻底拆开。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="two-tracks" data-index="4" aria-labelledby="title-4">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>公司事实 · MOBILE READING</span>
+          <span>05 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-4">经营资产不等于法定主体</h2>
+          <p class="purpose">避免把历史央厨能力直接等同于杨光食品公司的历史。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="4" aria-label="放大查看第5页原稿">
+          <img src="assets/slides/slide-05.png" alt="第5页原稿：经营资产不等于法定主体" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>央厨在公司成立前已经运行。</li><li>杨光食品取得许可后，才具备食品生产主体的合规基础。</li><li>两者之间的资产、人员和交易关系要靠访谈或凭证确认。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：两份央厨年度总结、两份公司简介；主体关系属于待确认项。</p>
+          <p><strong>衔接下页</strong>边界分清后，再看业务目前怎么转起来。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="operating-loop" data-index="5" aria-labelledby="title-5">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>公司事实 · MOBILE READING</span>
+          <span>06 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-5">当前能力围绕门店订单运转</h2>
+          <p class="purpose">用一个闭环解释现有经营方式。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="5" aria-label="放大查看第6页原稿">
+          <img src="assets/slides/slide-06.png" alt="第6页原稿：当前能力围绕门店订单运转" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>门店订单决定采购和生产节奏。</li><li>加工与仓配把原料变成可用商品。</li><li>销售反馈再进入下一轮排产。</li><li>现有材料能证明内部供给闭环，不能证明外部B端闭环。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：产业链结构分析、央厨年度总结；“外部B端闭环”尚未被现有经营数据证明。</p>
+          <p><strong>衔接下页</strong>接着把最确定的经营数字放进一张事实账。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="company-ledger" data-index="6" aria-labelledby="title-6">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>公司事实 · MOBILE READING</span>
+          <span>07 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-6">现在可以确定的四件事</h2>
+          <p class="purpose">建立企业层面的最低事实集。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="6" aria-label="放大查看第7页原稿">
+          <img src="assets/slides/slide-07.png" alt="第7页原稿：现在可以确定的四件事" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>销售、许可和人员是当前最常被引用的数字。</li><li>其中2026统计周期和团队人数存在口径问题。</li><li>所以这一页只记录，不做增长结论。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：杨光食品简介(1)；食品许可信息同时见公司官方简介。</p>
+          <p><strong>衔接下页</strong>再处理最容易被当成利润率的37.9%。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="margin-caution" data-index="7" aria-labelledby="title-7">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>公司事实 · MOBILE READING</span>
+          <span>08 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-7">37.9%不是财务毛利率</h2>
+          <p class="purpose">阻止后续分析把采购差额误当财务毛利。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="7" aria-label="放大查看第8页原稿">
+          <img src="assets/slides/slide-08.png" alt="第8页原稿：37.9%不是财务毛利率" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>材料只用了销售减采购。</li><li>人工、物流、损耗、库存和税费是否计入并不清楚。</li><li>后续最好把它改称采购差额率，并补标准成本表。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>计算：2025 (3051.96−2199.68)/3051.96；2026 (1770.32−1098.72)/1770.32。来源：杨光食品简介(1)。</p>
+          <p><strong>衔接下页</strong>公司口径理清后，再进入市场判断。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="market-baseline" data-index="8" aria-labelledby="title-8">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>市场与行业 · MOBILE READING</span>
+          <span>09 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-8">大市场、低增速、强分化</h2>
+          <p class="purpose">用三个数字建立行业基线。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="8" aria-label="放大查看第9页原稿">
+          <img src="assets/slides/slide-09.png" alt="第9页原稿：大市场、低增速、强分化" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>2,680亿元说明赛道足够大。</li><li>4.3%说明它已经不是高速扩容。</li><li>连锁化率上升，意味着标准化需求仍有增量。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：市场规模与增速分析转引红餐产业研究院《烧烤产业发展报告2026》；连锁化率为本组材料引用口径。</p>
+          <p><strong>衔接下页</strong>但市场增长方式已经发生变化。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="growth-mode" data-index="9" aria-labelledby="title-9">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>市场与行业 · MOBILE READING</span>
+          <span>10 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-9">从开新店转向做单店</h2>
+          <p class="purpose">区分市场规模增长与门店数量下降。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="9" aria-label="放大查看第10页原稿">
+          <img src="assets/slides/slide-10.png" alt="第10页原稿：从开新店转向做单店" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>门店数下降说明出清，而不是市场规模一定下降。</li><li>连锁化率继续上升，说明订单可能向更稳定的品牌集中。</li><li>对供应商而言，客户质量比客户数量更重要。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：市场规模与增速分析；51.7万与40.9万均为门店数，不能与企业注册量混用。</p>
+          <p><strong>衔接下页</strong>再把大市场逐层缩到企业可讨论的量级。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="market-funnel" data-index="10" aria-labelledby="title-10">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>市场与行业 · MOBILE READING</span>
+          <span>11 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-10">从2,680亿到1,770万不能一步跳</h2>
+          <p class="purpose">避免把下游消费、采购市场和企业收入混成一个分母。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="10" aria-label="放大查看第11页原稿">
+          <img src="assets/slides/slide-11.png" alt="第11页原稿：从2,680亿到1,770万不能一步跳" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>2,680亿元是消费者端。</li><li>1,072亿元是全部食材采购估算。</li><li>61.4亿元只是四市情景值。</li><li>企业销售除以区域情景值可以看量级，但不能当真实市占率。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：市场规模与增速分析；公司销售来自杨光食品简介(1)。所有估算已在原报告标注数据性质。</p>
+          <p><strong>衔接下页</strong>市场漏斗清楚后，再看杨光位于产业链哪里。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="industry-chain" data-index="11" aria-labelledby="title-11">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>市场与行业 · MOBILE READING</span>
+          <span>12 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-11">产业链是三种约束</h2>
+          <p class="purpose">说明上游、中游、下游分别限制什么。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="11" aria-label="放大查看第12页原稿">
+          <img src="assets/slides/slide-12.png" alt="第12页原稿：产业链是三种约束" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>上游解决原料和供应稳定。</li><li>中游解决加工效率和标准化。</li><li>下游解决履约、动销和回款。</li><li>杨光目前最有材料支撑的是中游能力。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：产业链结构分析、央厨年度总结；外部B端与零售目前只作为边界，不作为已验证收入来源。</p>
+          <p><strong>衔接下页</strong>产业链上的价值并不只出现在加工环节。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="value-points" data-index="12" aria-labelledby="title-12">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>市场与行业 · MOBILE READING</span>
+          <span>13 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-12">价值分散在四个环节</h2>
+          <p class="purpose">把利润来源改写成可验证的经营动作。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="12" aria-label="放大查看第13页原稿">
+          <img src="assets/slides/slide-13.png" alt="第13页原稿：价值分散在四个环节" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>采购、加工、履约和客户结构都会影响结果。</li><li>原报告的利润数字混用了毛利、净利和成本占比。</li><li>因此这页不做横向利润率比较，只保留价值动作。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：产业链结构分析、综合分析；原材料中的毛利/净利/成本占比口径混杂，本页只保留可比较的价值动作。</p>
+          <p><strong>衔接下页</strong>再看这些价值动作分别面临哪类竞争者。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="competition-types" data-index="13" aria-labelledby="title-13">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>竞争格局 · MOBILE READING</span>
+          <span>14 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-13">杨光面对四类替代者</h2>
+          <p class="purpose">把竞争从同业名单改成替代关系。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="13" aria-label="放大查看第14页原稿">
+          <img src="assets/slides/slide-14.png" alt="第14页原稿：杨光面对四类替代者" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>综合食品巨头靠产能和渠道。</li><li>平台型公司靠终端网络。</li><li>垂直供应商靠专业与服务。</li><li>品牌自建央厨会直接减少第三方需求。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：竞争格局分析；“源头型供应链企业不足15%”等缺少可追溯来源，未纳入主结论。</p>
+          <p><strong>衔接下页</strong>绝对体量比较还需要先纠正一个计算错误。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="peer-scale-check" data-index="14" aria-labelledby="title-14">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>竞争格局 · MOBILE READING</span>
+          <span>15 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-14">同行体量复算</h2>
+          <p class="purpose">纠正综合材料中1–2%的数量级错误。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="14" aria-label="放大查看第15页原稿">
+          <img src="assets/slides/slide-15.png" alt="第15页原稿：同行体量复算" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>按现有数字复算，杨光约为锅圈的0.23%。</li><li>相对安井约为0.11%。</li><li>这个比较只能说明体量差距，不代表模式优劣。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：竞争格局分析转引安井年度业绩公告、锅圈港股财报；分子来自杨光食品简介(1)，统计周期待确认。</p>
+          <p><strong>衔接下页</strong>除了竞争者，政策与技术也在筛选供应商。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="policy-tech-forces" data-index="15" aria-labelledby="title-15">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>政策与技术 · MOBILE READING</span>
+          <span>16 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-15">资格、效率、履约共同决定能不能扩</h2>
+          <p class="purpose">把政策技术材料收敛为三个扩张门槛。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="15" aria-label="放大查看第16页原稿">
+          <img src="assets/slides/slide-16.png" alt="第16页原稿：资格、效率、履约共同决定能不能扩" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>许可和追溯决定合规底线。</li><li>加工效率决定放大后是否赚钱。</li><li>冷链履约决定区域扩张是否稳定。</li><li>具体法规和温度数据仍需补原始来源。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>来源：政策与技术变量分析、产业链结构分析；温度、法规条款等具体数值不在本页作为已核验事实。</p>
+          <p><strong>衔接下页</strong>技术投入还需要讨论先后顺序。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="technology-paths" data-index="16" aria-labelledby="title-16">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>政策与技术 · MOBILE READING</span>
+          <span>17 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-16">先验证瓶颈，再决定重投入</h2>
+          <p class="purpose">给出与当前阶段匹配的技术选择框架。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="16" aria-label="放大查看第17页原稿">
+          <img src="assets/slides/slide-17.png" alt="第17页原稿：先验证瓶颈，再决定重投入" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>先把工时、损耗、库存和动销记录下来。</li><li>当工艺和产量稳定后，再考虑重自动化。</li><li>这是一条分析建议，不是公司的既定方案。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>本页为基于现有经营阶段的分析建议，不是公司已经确定的技术路线。</p>
+          <p><strong>衔接下页</strong>把公司、市场、竞争和变量合在一起，可以看到机会与约束。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="opportunities-constraints" data-index="17" aria-labelledby="title-17">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>综合判断 · MOBILE READING</span>
+          <span>18 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-17">机会来自标准化，约束来自未验证</h2>
+          <p class="purpose">形成第一次分工的共同结论。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="17" aria-label="放大查看第18页原稿">
+          <img src="assets/slides/slide-18.png" alt="第18页原稿：机会来自标准化，约束来自未验证" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>已有央厨基础是优势。</li><li>行业标准化需求是外部机会。</li><li>外部客户和真实利润仍未验证。</li><li>重资产扩张会同步放大现金需求。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>综合来源：公司介绍、市场规模、产业链、竞争格局、政策技术五类材料。</p>
+          <p><strong>衔接下页</strong>所以进入六要素之前，先补六个关键事实。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="open-questions" data-index="18" aria-labelledby="title-18">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>综合判断 · MOBILE READING</span>
+          <span>19 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-18">下一轮先补六个事实</h2>
+          <p class="purpose">把材料冲突转成可执行的补数清单。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="18" aria-label="放大查看第19页原稿">
+          <img src="assets/slides/slide-19.png" alt="第19页原稿：下一轮先补六个事实" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>第一优先级是2026统计周期。</li><li>第二是主体、客户和品牌边界。</li><li>第三是人员、成本与现金流。</li><li>这些答案会直接改变六要素和战略结论。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>冲突来自：杨光食品简介(1)、综合分析、市场规模报告、产业链报告。当前均保留，不自行裁决。</p>
+          <p><strong>衔接下页</strong>附录先把市场数字的口径放在同一张表里。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="caliber-appendix" data-index="19" aria-labelledby="title-19">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>附录 · MOBILE READING</span>
+          <span>20 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-19">四组市场口径</h2>
+          <p class="purpose">解释为什么主线采用2,680亿元而不采用其他数字。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="19" aria-label="放大查看第20页原稿">
+          <img src="assets/slides/slide-20.png" alt="第20页原稿：四组市场口径" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>2,680亿元来源较新且可复算。</li><li>1,072亿元是估算，不是半成品市场。</li><li>2,200和4,200亿元缺少清晰定义与来源，所以不进主线。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>采用原则：来源更新、定义透明、可复算；其余数字保留为待核验，不删除也不混用。</p>
+          <p><strong>衔接下页</strong>最后列出整套底稿的来源入口。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide" id="source-index" data-index="20" aria-labelledby="title-20">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>附录 · MOBILE READING</span>
+          <span>21 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-20">来源索引</h2>
+          <p class="purpose">让组员能回到原文件追溯结论。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="20" aria-label="放大查看第21页原稿">
+          <img src="assets/slides/slide-21.png" alt="第21页原稿：来源索引" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>硬事实优先回到公司官方简介和央厨总结。</li><li>分析判断回到四份分工原稿。</li><li>外部数据以市场报告列出的12项来源为入口。</li><li>政策技术材料需要补链接后再升级为已核验事实。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>完整文件均位于“第一阶段专业大课/”及“第一次分工 作业合集：标的介绍与行业分析/”；本PPT未改动源文件。</p>
+          <p><strong>衔接下页</strong>用三道问题把第一次分工接到六要素和战略。</p>
+        </div>
+      </div>
+    </section>
+    <section class="mobile-slide closing" id="closing" data-index="21" aria-labelledby="title-21">
+      <div class="slide-shell">
+        <header class="slide-meta">
+          <span>收束 · MOBILE READING</span>
+          <span>22 / 22</span>
+        </header>
+        <div class="slide-heading">
+          <p class="eyebrow">本页目的</p>
+          <h2 id="title-21">先把事实对齐</h2>
+          <p class="purpose">把共同底稿转成下一阶段的讨论入口。</p>
+        </div>
+        <button class="slide-preview" type="button" data-preview="21" aria-label="放大查看第22页原稿">
+          <img src="assets/slides/slide-22.png" alt="第22页原稿：先把事实对齐" loading="lazy" decoding="async">
+          <span>点击放大原稿</span>
+        </button>
+        <div class="reading-notes">
+          <p class="eyebrow">讲解要点</p>
+          <ol><li>先画清谁和谁交易。</li><li>再验证价值靠什么能力实现。</li><li>最后决定哪条增长路径值得下注。</li><li>这三步分别连接定位、业务系统、能力与战略。</li></ol>
+        </div>
+        <div class="traceability">
+          <p><strong>来源与口径</strong>本页为第一次分工的收束与后续讨论入口。</p>
+          <p><strong>衔接下页</strong>共同底稿完成，进入商业模式六要素和战略分析。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <nav class="bottom-nav" aria-label="手机版翻页">
+    <button id="prev" type="button" aria-label="上一页">↑</button>
+    <a class="nav-status" href="index.html" aria-label="打开电脑横屏版">
+      <span id="current">01</span><span><i></i></span><span>22 · 电脑版</span>
+    </a>
+    <button id="next" type="button" aria-label="下一页">↓</button>
+  </nav>
+  <dialog id="preview-dialog" aria-labelledby="preview-title">
+    <div class="viewer">
+      <div class="viewer-head"><span id="preview-title">原稿大图</span><button id="close-preview" type="button">关闭</button></div>
+      <div class="viewer-stage"><img id="preview-image" alt=""></div>
+    </div>
+  </dialog>
+  <script>
+    const slides=[...document.querySelectorAll('.mobile-slide')];
+    const prev=document.querySelector('#prev');
+    const next=document.querySelector('#next');
+    const current=document.querySelector('#current');
+    const dialog=document.querySelector('#preview-dialog');
+    const previewImage=document.querySelector('#preview-image');
+    const previewTitle=document.querySelector('#preview-title');
+    let active=0;
+    const update=(index)=>{
+      active=Math.max(0,Math.min(slides.length-1,index));
+      document.documentElement.style.setProperty('--active',active);
+      document.documentElement.style.setProperty('--progress',((active+1)/slides.length*100).toFixed(2)+'%');
+      current.textContent=String(active+1).padStart(2,'0');
+      prev.disabled=active===0;
+      next.disabled=active===slides.length-1;
+    };
+    const go=(index)=>{update(index);slides[active].scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})};
+    const observer=new IntersectionObserver((entries)=>{
+      const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+      if(visible) update(Number(visible.target.dataset.index));
+    },{threshold:[.35,.55,.75]});
+    slides.forEach(slide=>observer.observe(slide));
+    prev.addEventListener('click',()=>go(active-1));
+    next.addEventListener('click',()=>go(active+1));
+    addEventListener('keydown',(event)=>{
+      if(dialog.open) return;
+      if(['ArrowDown','ArrowRight','PageDown',' '].includes(event.key)){event.preventDefault();go(active+1)}
+      if(['ArrowUp','ArrowLeft','PageUp'].includes(event.key)){event.preventDefault();go(active-1)}
+      if(event.key==='Home'){event.preventDefault();go(0)}
+      if(event.key==='End'){event.preventDefault();go(slides.length-1)}
+    });
+    let touchX=0,touchY=0;
+    addEventListener('touchstart',(event)=>{touchX=event.changedTouches[0].clientX;touchY=event.changedTouches[0].clientY},{passive:true});
+    addEventListener('touchend',(event)=>{
+      if(dialog.open) return;
+      const dx=event.changedTouches[0].clientX-touchX;
+      const dy=event.changedTouches[0].clientY-touchY;
+      if(Math.abs(dx)>64&&Math.abs(dx)>Math.abs(dy)*1.25) go(active+(dx<0?1:-1));
+    },{passive:true});
+    document.querySelectorAll('[data-preview]').forEach(button=>button.addEventListener('click',()=>{
+      const image=button.querySelector('img');
+      previewImage.src=image.src;
+      previewImage.alt=image.alt;
+      previewTitle.textContent=image.alt;
+      dialog.showModal();
+    }));
+    document.querySelector('#close-preview').addEventListener('click',()=>dialog.close());
+    dialog.addEventListener('click',(event)=>{if(event.target===dialog)dialog.close()});
+    update(0);
+  </script>
+</body>
+</html>
